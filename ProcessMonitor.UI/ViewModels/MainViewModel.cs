@@ -116,6 +116,14 @@ namespace ProcessMonitor.UI.ViewModels
         [RelayCommand]
         private void OpenRankings()
         {
+            var existing = Application.Current.Windows.OfType<RankingsWindow>().FirstOrDefault();
+            if (existing != null)
+            {
+                existing.Activate();
+                if (existing.WindowState == WindowState.Minimized) existing.WindowState = WindowState.Normal;
+                return;
+            }
+
             var win = new RankingsWindow();
             win.Show();
         }

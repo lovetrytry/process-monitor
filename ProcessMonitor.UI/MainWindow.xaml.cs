@@ -37,6 +37,14 @@ namespace ProcessMonitor.UI
 
         private void ExportHistory_Click(object sender, RoutedEventArgs e)
         {
+            var existing = System.Linq.Enumerable.FirstOrDefault(Application.Current.Windows.OfType<ExportHistoryWindow>());
+            if (existing != null)
+            {
+                existing.Activate();
+                if (existing.WindowState == WindowState.Minimized) existing.WindowState = WindowState.Normal;
+                return;
+            }
+
             var win = new ExportHistoryWindow();
             win.Owner = this;
             win.ShowDialog();

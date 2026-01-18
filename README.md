@@ -34,3 +34,8 @@ Windows 端的进程监控工具，可以监控进程的 CPU、内存、磁盘�
 
 * ProcessMonitor.Core：核心逻辑，获取进程信息。
 * ProcessMonitor.UI：UI 界面。
+
+## 许可证 License
+
+本项目采用 [MIT License](LICENSE) 开源。
+这意味着您可以免费使用、修改和分发，但必须保留原作者版权声明。

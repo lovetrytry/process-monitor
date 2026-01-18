@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.IO;
+using System.Threading;
 using System.Windows;
 
 namespace ProcessMonitor.UI;
@@ -10,8 +11,22 @@ namespace ProcessMonitor.UI;
 /// </summary>
 public partial class App : Application
 {
+    private static Mutex _mutex;
+
     protected override void OnStartup(StartupEventArgs e)
     {
+        const string appName = "ProcessMonitor.UI.SingleInstance";
+        bool createdNew;
+
+        _mutex = new Mutex(true, appName, out createdNew);
+
+        if (!createdNew)
+        {
+            MessageBox.Show("Process Monitor is already running.", "Instance Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            Shutdown();
+            return;
+        }
+
         AppDomain.CurrentDomain.UnhandledException += (s, args) =>
             LogException((Exception)args.ExceptionObject, "AppDomain.UnhandledException");
 
