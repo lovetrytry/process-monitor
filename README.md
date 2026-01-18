@@ -2,7 +2,7 @@
 
 ## 介绍 Introduction
 
-Windows 端的进程监控工具，可以监控进程的 CPU、内存、磁盘等使用率和使用时间等信息。
+用 AI 编写的一个 Windows 端的进程监控工具，可以监控进程的 CPU、内存、磁盘等使用率和使用时间等信息。
 
 ## 功能 Features
 
@@ -29,6 +29,8 @@ Windows 端的进程监控工具，可以监控进程的 CPU、内存、磁盘�
 ## UI
 
 * 使用 WPF，界面可以参考截图。
+
+![Example-UI](Example-UI.png)
 
 ## 项目结构 Project Structure
 
