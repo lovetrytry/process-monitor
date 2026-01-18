@@ -1,0 +1,35 @@
+<Window x:Class="ProcessMonitor.UI.RankingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:ProcessMonitor.UI.ViewModels"
+        mc:Ignorable="d"
+        Title="Process Rankings" Height="500" Width="800"
+        Icon="Images/icon.png">
+    
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="Time Range:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <ComboBox ItemsSource="{Binding TimeRanges}" SelectedItem="{Binding SelectedRange}" Width="150" VerticalContentAlignment="Center"/>
+            <Button Content="Export CSV" Command="{Binding ExportCommand}" Margin="10,0,0,0" Padding="10,5"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Rankings}" AutoGenerateColumns="False" IsReadOnly="True" Sorting="DataGrid_Sorting">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Rank" Binding="{Binding Rank}" Width="50"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="150"/>
+                <DataGridTextColumn Header="Total" Binding="{Binding TotalCount}" Width="80"/>
+                <DataGridTextColumn Header="CPU Log" Binding="{Binding CpuCount}" Width="80"/>
+                <DataGridTextColumn Header="Mem Log" Binding="{Binding MemoryCount}" Width="80"/>
+                <DataGridTextColumn Header="IO Log" Binding="{Binding IoCount}" Width="80"/>
+                <DataGridTextColumn Header="Path" Binding="{Binding Path}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

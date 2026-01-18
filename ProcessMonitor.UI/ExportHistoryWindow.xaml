@@ -1,0 +1,31 @@
+<Window x:Class="ProcessMonitor.UI.ExportHistoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Export History" Height="250" Width="400"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        Icon="Images/icon.png">
+    <Grid Margin="20">
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock Text="Select Date Range to Export:" FontSize="16" FontWeight="Bold" Margin="0,0,0,20"/>
+            
+            <Grid Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <TextBlock Text="Start Date:" VerticalAlignment="Center" Margin="0,0,10,10"/>
+                <DatePicker x:Name="StartDatePicker" Grid.Column="1" Margin="0,0,0,10"/>
+                
+                <TextBlock Text="End Date:" Grid.Row="1" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <DatePicker x:Name="EndDatePicker" Grid.Row="1" Grid.Column="1"/>
+            </Grid>
+            
+            <Button x:Name="ExportButton" Content="Export Raw Data (CSV)" Height="30" Margin="0,20,0,0" Click="ExportButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

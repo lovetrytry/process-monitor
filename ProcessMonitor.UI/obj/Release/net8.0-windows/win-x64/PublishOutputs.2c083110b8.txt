@@ -1,0 +1,9 @@
+D:\Dev\process_monitoring\PublishSingleFile\ProcessMonitor.UI.pdb
+D:\Dev\process_monitoring\PublishSingleFile\D3DCompiler_47_cor3.dll
+D:\Dev\process_monitoring\PublishSingleFile\PenImc_cor3.dll
+D:\Dev\process_monitoring\PublishSingleFile\PresentationNative_cor3.dll
+D:\Dev\process_monitoring\PublishSingleFile\vcruntime140_cor3.dll
+D:\Dev\process_monitoring\PublishSingleFile\wpfgfx_cor3.dll
+D:\Dev\process_monitoring\PublishSingleFile\e_sqlite3.dll
+D:\Dev\process_monitoring\PublishSingleFile\ProcessMonitor.Core.pdb
+D:\Dev\process_monitoring\PublishSingleFile\ProcessMonitor.UI.exe

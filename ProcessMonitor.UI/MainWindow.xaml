@@ -1,0 +1,141 @@
+﻿<Window x:Class="ProcessMonitor.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:ProcessMonitor.UI.ViewModels"
+        xmlns:local="clr-namespace:ProcessMonitor.UI"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        mc:Ignorable="d"
+        Title="Process Monitor" Height="600" Width="900"
+        Icon="Images/icon.png"
+        d:DataContext="{d:DesignInstance vm:MainViewModel}">
+    
+    <Window.Resources>
+        <local:BooleanToLabelConverter x:Key="BooleanToLabelConverter"/>
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- System Tray Icon -->
+        <tb:TaskbarIcon x:Name="MyNotifyIcon"
+                        IconSource="Images/icon.png"
+                        ToolTipText="Process Monitor"
+                        TrayMouseDoubleClick="Show_Click"> 
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Show" Click="Show_Click"/>
+                    <MenuItem Header="Exit" Click="Exit_Click"/>
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
+
+        <!-- Top Bar: Header and Menu -->
+        <Grid Grid.Row="0" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Text="Process Monitor Dashboard" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+            
+            <Menu Grid.Column="1" Background="Transparent" VerticalAlignment="Center">
+                <MenuItem Header="Rankings (排行榜)" Command="{Binding OpenRankingsCommand}"/>
+                <MenuItem Header="Menu">
+                    <MenuItem Header="Open Database Location" Click="OpenDbLocation_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Export History..." Click="ExportHistory_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Clean History">
+                        <MenuItem Header="Older than 1 Week" Command="{Binding CleanHistoryCommand}" CommandParameter="1Week"/>
+                        <MenuItem Header="Older than 1 Month" Command="{Binding CleanHistoryCommand}" CommandParameter="1Month"/>
+                        <MenuItem Header="Older than 3 Months" Command="{Binding CleanHistoryCommand}" CommandParameter="3Months"/>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}"/>
+                </MenuItem>
+            </Menu>
+        </Grid>
+
+        <!-- Controls -->
+        <!-- Controls -->
+        <DockPanel Grid.Row="1" Margin="0,0,0,10" LastChildFill="False">
+            <!-- Left Side -->
+            <Button DockPanel.Dock="Left" 
+                    Content="{Binding IsMonitoring, Converter={StaticResource BooleanToLabelConverter}}" 
+                    Command="{Binding ToggleMonitoringCommand}" 
+                    Padding="10,5" Width="100"/>
+            
+            <TextBlock DockPanel.Dock="Left" 
+                       Text="{Binding DisplayTimestamp, StringFormat='Last Updated: {0}'}" 
+                       VerticalAlignment="Center" Margin="20,0,10,0" FontWeight="SemiBold"/>
+            
+            <!-- Right Side: History -->
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <TextBlock Text="History:" VerticalAlignment="Center" Margin="10,0,5,0"/>
+                <DatePicker SelectedDate="{Binding SelectedDate}" Width="100" Margin="0,0,5,0"/>
+                <ComboBox ItemsSource="{Binding Hours}" SelectedItem="{Binding SelectedHour}" Width="50" Margin="0,0,5,0" ToolTip="Hour Filter"/>
+                <ComboBox ItemsSource="{Binding AvailableTimestamps}" 
+                          SelectedItem="{Binding SelectedTimestamp}"
+                          Width="160"/>
+            </StackPanel>
+        </DockPanel>
+
+        <!-- Tabs -->
+        <TabControl Grid.Row="2">
+            <!-- CPU Tab -->
+            <TabItem Header="Top 20 CPU">
+                <DataGrid ItemsSource="{Binding CpuTop10}" AutoGenerateColumns="False" IsReadOnly="True" Sorting="DataGrid_Sorting">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="PID" Binding="{Binding Id}" Width="60"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="150"/>
+                        <DataGridTextColumn Header="Avg CPU %" Binding="{Binding CpuUsagePercentAvg, StringFormat=N2}" Width="100"/>
+                        <DataGridTextColumn Header="Total CPU Time (ms)" Binding="{Binding CpuTimeTotalMs, StringFormat=N0}" Width="120"/>
+                        <DataGridTextColumn Header="Path" Binding="{Binding Path}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            
+            <!-- Memory Tab -->
+            <TabItem Header="Top 20 Memory">
+                <DataGrid ItemsSource="{Binding MemoryTop10}" AutoGenerateColumns="False" IsReadOnly="True" Sorting="DataGrid_Sorting">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="PID" Binding="{Binding Id}" Width="60"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="150"/>
+                        <DataGridTextColumn Header="Avg Memory (Bytes)" Binding="{Binding MemoryUsageBytesAvg, StringFormat=N0}" Width="150"/>
+                        <DataGridTextColumn Header="Path" Binding="{Binding Path}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            
+            <!-- Disk Tab -->
+            <TabItem Header="Top 20 Disk IO">
+                <DataGrid ItemsSource="{Binding DiskTop10}" AutoGenerateColumns="False" IsReadOnly="True" Sorting="DataGrid_Sorting">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="PID" Binding="{Binding Id}" Width="60"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="150"/>
+                        <DataGridTextColumn Header="Total Disk Bytes" Binding="{Binding DiskTotalBytes, StringFormat=N0}" Width="120"/>
+                        <DataGridTextColumn Header="Read Bytes" Binding="{Binding DiskReadBytesTotal, StringFormat=N0}" Width="100"/>
+                        <DataGridTextColumn Header="Write Bytes" Binding="{Binding DiskWriteBytesTotal, StringFormat=N0}" Width="100"/>
+                        <DataGridTextColumn Header="Path" Binding="{Binding Path}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+
+        <!-- Status Bar -->
+        <StatusBar Grid.Row="3" Margin="0,5,0,0">
+            <StatusBarItem>
+                <TextBlock Text="{Binding StatusMessage}"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+    
+
+</Window>

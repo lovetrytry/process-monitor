@@ -1,0 +1,12 @@
+D:\Dev\process_monitoring\ProcessMonitor.Core\bin\Release\net8.0\ProcessMonitor.Core.deps.json
+D:\Dev\process_monitoring\ProcessMonitor.Core\bin\Release\net8.0\ProcessMonitor.Core.dll
+D:\Dev\process_monitoring\ProcessMonitor.Core\bin\Release\net8.0\ProcessMonitor.Core.pdb
+D:\Dev\process_monitoring\ProcessMonitor.Core\obj\Release\net8.0\ProcessMonitor.Core.csproj.AssemblyReference.cache
+D:\Dev\process_monitoring\ProcessMonitor.Core\obj\Release\net8.0\ProcessMonitor.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\Dev\process_monitoring\ProcessMonitor.Core\obj\Release\net8.0\ProcessMonitor.Core.AssemblyInfoInputs.cache
+D:\Dev\process_monitoring\ProcessMonitor.Core\obj\Release\net8.0\ProcessMonitor.Core.AssemblyInfo.cs
+D:\Dev\process_monitoring\ProcessMonitor.Core\obj\Release\net8.0\ProcessMonitor.Core.csproj.CoreCompileInputs.cache
+D:\Dev\process_monitoring\ProcessMonitor.Core\obj\Release\net8.0\ProcessMonitor.Core.dll
+D:\Dev\process_monitoring\ProcessMonitor.Core\obj\Release\net8.0\refint\ProcessMonitor.Core.dll
+D:\Dev\process_monitoring\ProcessMonitor.Core\obj\Release\net8.0\ProcessMonitor.Core.pdb
+D:\Dev\process_monitoring\ProcessMonitor.Core\obj\Release\net8.0\ref\ProcessMonitor.Core.dll
